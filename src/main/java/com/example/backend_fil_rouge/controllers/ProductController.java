@@ -49,11 +49,11 @@ public class ProductController {
 	}
 	
 	
-	@PostMapping(path = "", produces = "application/json")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product)
+	@PostMapping(path = "/{id}", produces = "application/json")
+	public ResponseEntity<Product> addProduct(@RequestBody Product product, @PathVariable Long category_id)
 	{
 		try {
-			return new ResponseEntity<Product>(productService.addProduct(product), HttpStatus.OK);
+			return new ResponseEntity<Product>(productService.addProduct(product, category_id), HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,7 +72,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping(path = "", produces = "application/json")
-	public ResponseEntity<HttpStatus> removeProducts()
+	public ResponseEntity<HttpStatus> deleteProducts()
 	{
 		try {
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -83,7 +83,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping(path = "/{id}", produces = "application/json")
-	public ResponseEntity<HttpStatus> removeProductById(@PathVariable Long id)
+	public ResponseEntity<HttpStatus> deleteProductById(@PathVariable Long id)
 	{
 		try {
 			return new ResponseEntity<>(HttpStatus.OK);

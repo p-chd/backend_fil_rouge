@@ -10,7 +10,7 @@ public interface ProductService {
 	
 	Product getProductById(Long id);
 	
-	Product addProduct(Product product);
+	Product addProduct(Product product, Long category_id);
 	
 	Product updateProduct(Product product, Long id);
 	

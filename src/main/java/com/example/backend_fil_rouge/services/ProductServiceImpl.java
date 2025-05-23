@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.backend_fil_rouge.models.Category;
 import com.example.backend_fil_rouge.models.Product;
+import com.example.backend_fil_rouge.repositories.CategoryRepository;
 import com.example.backend_fil_rouge.repositories.ProductRepository;
 
 @Service
@@ -14,6 +16,9 @@ public class ProductServiceImpl implements ProductService{
 
 	@Autowired
 	ProductRepository productRepo;
+	
+	@Autowired
+	CategoryRepository categoryRepo;
 	
 	@Override
 	public List<Product> getProducts() {
@@ -32,9 +37,20 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Product addProduct(Product product) {
+	public Product addProduct(Product product, Long category_id) {
 		// TODO Auto-generated method stub
-		return productRepo.save(product);
+		Optional<Category> category = categoryRepo.findById(category_id);
+		if (category.isPresent())
+		{
+			Product _product = new Product();
+			_product.setAvailable(product.getAvailable());
+			_product.setName(product.getName());
+			_product.setPrice(product.getPrice());
+			_product.setDescription(product.getDescription());
+			_product.setCategory(category.get());
+			return productRepo.save(_product);
+		}
+		return null;
 	}
 
 	@Override
