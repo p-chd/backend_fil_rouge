@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,7 +49,7 @@ public class ProductController {
 	}
 	
 	
-	@GetMapping(path = "", produces = "application/json")
+	@PostMapping(path = "", produces = "application/json")
 	public ResponseEntity<Product> addProduct(@RequestBody Product product)
 	{
 		try {
@@ -57,7 +60,7 @@ public class ProductController {
 		}
 	}
 	
-	@GetMapping(path = "/{id}", produces = "application/json")
+	@PutMapping(path = "/{id}", produces = "application/json")
 	public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable Long id)
 	{
 		try {
@@ -68,7 +71,7 @@ public class ProductController {
 		}
 	}
 	
-	@GetMapping(path = "", produces = "application/json")
+	@DeleteMapping(path = "", produces = "application/json")
 	public ResponseEntity<HttpStatus> removeProducts()
 	{
 		try {
@@ -79,7 +82,7 @@ public class ProductController {
 		}
 	}
 	
-	@GetMapping(path = "/{id}", produces = "application/json")
+	@DeleteMapping(path = "/{id}", produces = "application/json")
 	public ResponseEntity<HttpStatus> removeProductById(@PathVariable Long id)
 	{
 		try {
