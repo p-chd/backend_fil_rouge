@@ -38,6 +38,11 @@ public class UserServiceImpl implements UserService{
 		if (tempUser.isPresent())
 		{
 			User _user = tempUser.get();
+			_user.setName(user.getName());
+			_user.setCreation_date(user.getCreation_date());
+			_user.setEmail(user.getEmail());
+			_user.setIs_confirmed(user.getIs_confirmed());
+			_user.setPassword(user.getPassword());
 			return userRepository.save(_user);
 		}
 		return null;
