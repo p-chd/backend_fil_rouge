@@ -5,13 +5,30 @@ services:
     image: postgres:15
     container_name: citis_postgres
     environment:
-      POSTGRES_DB: citis_db
+      POSTGRES_DB: keycloak
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.2
+    container_name: citis_keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: 123
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    command: start-dev
 
 volumes:
   postgres_data:
